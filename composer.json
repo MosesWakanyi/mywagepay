@@ -1,0 +1,37 @@
+{
+    "name": "mywagepay/baas",
+    "description": "CBK approved credit provider for Digibank as a service",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "myWagepay\\Baas\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "myWagepay\\Baas\\MyWagepayServiceProvider"
+            ],
+            "aliases": {
+                "WageCustomer": "myWagepay\\Baas\\Facade\\WageCustomer",
+                "WageCustomerUpdate": "myWagepay\\Baas\\Facade\\WageCustomerUpdate",
+                "WageCustomerLimit": "myWagepay\\Baas\\Facade\\WageCustomerLimit",
+                "WageBorrow": "myWagepay\\Baas\\Facade\\WageBorrow",
+                "WageRepayment": "myWagepay\\Baas\\Facade\\WageRepayment",
+                "WageOwed": "myWagepay\\Baas\\Facade\\WageOwed",
+                "WageWithdraw": "myWagepay\\Baas\\Facade\\WageWithdraw"
+
+            }
+        }
+    },
+    "require": {
+        "php": ">=7.1",
+        "guzzlehttp/guzzle": "^6.0 || ^7.0"
+    },
+    "authors": [{
+        "name": "Moses",
+        "email": "mosegathecha@gmail.com"
+    }],
+    "minimum-stability": "stable"
+
+}

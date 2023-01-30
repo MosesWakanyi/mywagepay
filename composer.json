@@ -2,6 +2,8 @@
     "name": "mywagepay/baas",
     "description": "CBK approved credit provider for Digibank as a service",
     "type": "library",
+    "license": "MIT",
+    "keywords": ["myWagepay", "laravel", "Digital leading"],
     "autoload": {
         "psr-4": {
             "myWagepay\\Baas\\": "src/"

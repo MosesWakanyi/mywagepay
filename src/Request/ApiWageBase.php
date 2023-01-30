@@ -29,7 +29,6 @@ class ApiWageBase
         $this->wageBase = $wageBase;
     }
 
-
     /**
      * @param array $body
      * @param string $endpoint

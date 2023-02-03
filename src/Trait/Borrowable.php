@@ -8,6 +8,7 @@ use myWagepay\Baas\Facade\WageOwed;
 use myWagepay\Baas\Facade\WageBorrow;
 use myWagepay\Baas\Facade\WageCustomer;
 use myWagepay\Baas\Facade\WageRepayment;
+use myWagepay\Baas\Facade\WageUpdateLimit;
 use myWagepay\Baas\Facade\WageCustomerUpdate;
 
 trait Borrowable
@@ -16,7 +17,7 @@ trait Borrowable
     {
         try {
             $wageUser = WageCustomer::phone($this->membership->phone_number)
-                ->nat($this->membership->phone_number)
+                ->nat($this->membership->id_number)
                 ->email($this->email)
                 ->fname($this->membership->first_name)
                 ->lname($this->membership->last_name)
@@ -30,31 +31,46 @@ trait Borrowable
         } catch (Exception $ex) {
             Log::error($ex->getMessage());
         }
+        return  $wageUser;
     }
     public function updateAsWagepay($options = [])
     {
-        $wageUser = WageCustomerUpdate::to()->setOptions();
+        return WageCustomerUpdate::to($this->mywagepay_id)
+            ->setOptions($options)
+            ->call();
     }
 
     public function createLimitAsWagepay($creditLimit = 0)
     {
-        $wageLimit = WageCustomerUpdate::to()->phone()->newlimit();
+        return WageUpdateLimit::to($this->mywagepay_id)
+            ->phone($this->membership->phone_number)
+            ->newlimit($creditLimit)
+            ->call();
     }
 
-    public function borrowAsWagepay($borrowedAmount)
+    public function borrowAsWagepay($borrowedAmount, $dealineDate)
     {
-        $wageBorrow = WageBorrow::to()->amount()->deadline();
+        return WageBorrow::to($this->mywagepay_id)
+            ->amount($borrowedAmount)
+            ->deadline($dealineDate)
+            ->call();
     }
     public function loanListAsWagepay()
     {
-        $wageloans = WageOwed::to();
+        return WageOwed::to($this->mywagepay_id)->call();
     }
-    public function payAsWagepay($amountToPay, $phoneNumber, $referenceCode)
+    public function payAsWagepay($amountToPay, $referenceCode, $phoneNumber = '')
     {
-        $wageMakepay = WageRepayment::from()->phone()->amount()->reference();
+        return WageRepayment::from($this->mywagepay_id)
+            ->phone(isset($phoneNumber) ?? $this->membership->phone_number)
+            ->amount($amountToPay)
+            ->reference($referenceCode)
+            ->call();
     }
     public function withdrawAsWagepay($withdrawableAmount)
     {
-        $wageWithdraw = WageRepayment::to()->amount();
+        return WageRepayment::to($this->mywagepay_id)
+            ->amount($withdrawableAmount)
+            ->call();
     }
 }

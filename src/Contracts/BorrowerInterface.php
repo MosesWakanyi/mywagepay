@@ -34,9 +34,10 @@ interface BorrowerInterface
      *
      * @param \User\User $User
      * @param float $borrowedAmount
+     * @param string $dealineDate
      * @return string
      */
-    public function borrowAsWagepay(float $borrowedAmount);
+    public function borrowAsWagepay(float $borrowedAmount, string $dealineDate);
 
     /**
      * user loanList
@@ -50,11 +51,11 @@ interface BorrowerInterface
      *
      * @param \User\User $User
      * @param float $amountToPay
-     * @param string $phoneNumber
      * @param string $referenceCode
+     * @param string $phoneNumber
      * @return string
      */
-    public function payAsWagepay(float $amountToPay, string $phoneNumber, string $referenceCode);
+    public function payAsWagepay(float $amountToPay, string $referenceCode, string $phoneNumber,);
     /**
      * withdraw user.
      *

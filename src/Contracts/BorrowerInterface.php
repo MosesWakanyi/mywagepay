@@ -11,7 +11,7 @@ interface BorrowerInterface
      *
      * @return string
      */
-    public function createAsWagepay();
+    public function createAsWagepay(array $params);
 
     /**
      * update user.
@@ -27,17 +27,16 @@ interface BorrowerInterface
      * @param float $creditLimit
      * @return string
      */
-    public function createLimitAsWagepay(float $creditLimit);
+    public function createLimitAsWagepay(array $params);
 
     /**
      * borrow user.
      *
      * @param \User\User $User
-     * @param float $borrowedAmount
-     * @param string $dealineDate
+     * @param array $params
      * @return string
      */
-    public function borrowAsWagepay(float $borrowedAmount, string $dealineDate);
+    public function borrowAsWagepay(array $params);
 
     /**
      * user loanList
@@ -50,18 +49,16 @@ interface BorrowerInterface
      * pay user.
      *
      * @param \User\User $User
-     * @param float $amountToPay
-     * @param string $referenceCode
-     * @param string $phoneNumber
+     * @param array $params
      * @return string
      */
-    public function payAsWagepay(float $amountToPay, string $referenceCode, string $phoneNumber,);
+    public function payAsWagepay(array $params);
     /**
      * withdraw user.
      *
      * @param \User\User $User
-     * @param float $withdrawableAmount
+     * @param array $params
      * @return string
      */
-    public function withdrawAsWagepay(float $withdrawableAmount);
+    public function withdrawAsWagepay(array $params);
 }

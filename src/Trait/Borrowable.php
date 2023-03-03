@@ -15,7 +15,7 @@ use myWagepay\Baas\Facade\WageCustomerUpdate;
 
 trait Borrowable
 {
-    public function createAsWagepay($params)
+    public function createAsWagepay($params = [])
     {
         try {
             $validation = Validator::make($params, [
@@ -54,7 +54,7 @@ trait Borrowable
             ->call();
     }
 
-    public function createLimitAsWagepay($params)
+    public function createLimitAsWagepay($params = [])
     {
         try {
             $validation = Validator::make($params, [
@@ -73,7 +73,7 @@ trait Borrowable
         }
     }
 
-    public function borrowAsWagepay($params)
+    public function borrowAsWagepay($params = [])
     {
         try {
             $validation = Validator::make($params, [
@@ -97,7 +97,7 @@ trait Borrowable
     {
         return WageOwed::to($this->mywagepay_id)->call();
     }
-    public function payAsWagepay($params)
+    public function payAsWagepay($params = [])
     {
         try {
             $validation = Validator::make($params, [
@@ -117,7 +117,7 @@ trait Borrowable
             Log::error($ex->getMessage());
         }
     }
-    public function withdrawAsWagepay($params)
+    public function withdrawAsWagepay($params = [])
     {
         try {
             $validation = Validator::make($params, [

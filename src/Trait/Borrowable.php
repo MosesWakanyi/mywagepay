@@ -28,7 +28,7 @@ trait Borrowable
             'gender' => 'required',
         ]);
         if ($validation->fails()) {
-            throw new Exception(json_encode($validation->errors()));
+            throw new Exception(json_encode($validation->messages()));
         }
         $wageUser = WageCustomer::phone($params['phone_number'])
             ->nat($params['id_number'])
@@ -62,7 +62,7 @@ trait Borrowable
             'credit_limit' => 'required|numeric',
         ]);
         if ($validation->fails()) {
-            throw new Exception(json_encode($validation->errors()->all()));
+            throw new Exception(json_encode($validation->messages()));
         }
         return WageUpdateLimit::to($this->mywagepay_id)
             ->phone($params['phone_number'])

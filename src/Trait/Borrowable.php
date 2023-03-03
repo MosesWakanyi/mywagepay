@@ -15,7 +15,7 @@ use myWagepay\Baas\Facade\WageCustomerUpdate;
 
 trait Borrowable
 {
-    public function createAsWagepay($params = [])
+    public function createAsWagepay($params)
     {
         try {
             $validation = Validator::make($params, [
@@ -42,10 +42,11 @@ trait Borrowable
             if ($wageUser) {
                 $this->update(['mywagepay_id' => $wageUser->data->wage_uid]);
             }
+            return  $wageUser->data;
         } catch (Exception $ex) {
             Log::error($ex->getMessage());
+            return false;
         }
-        return  $wageUser;
     }
     public function updateAsWagepay($options = [])
     {

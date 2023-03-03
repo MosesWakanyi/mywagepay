@@ -28,8 +28,7 @@ interface BorrowerInterface
      * @return string
      */
     public function createLimitAsWagepay(array $params);
-
-    /**
+    /** 
      * borrow user.
      *
      * @param \User\User $User

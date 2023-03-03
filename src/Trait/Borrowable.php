@@ -41,8 +41,11 @@ trait Borrowable
                 ->call();
             if ($wageUser) {
                 $this->update(['mywagepay_id' => $wageUser->data->wage_uid]);
+                return  $wageUser->data;
+            } else {
+                throw new Exception("Could not initiate account with myWagepay");
+                return false;
             }
-            return  $wageUser->data;
         } catch (Exception $ex) {
             Log::error($ex->getMessage());
             return false;

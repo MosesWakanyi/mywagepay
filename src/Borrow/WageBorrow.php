@@ -19,6 +19,10 @@ class WageBorrow extends ApiWageBase
      */
     private $borrowedAmount;
     /**
+     * @var double
+     */
+    private $interestRate;
+    /**
      * @var string
      */
     private $deadlineDate;
@@ -71,6 +75,20 @@ class WageBorrow extends ApiWageBase
      * @param  $amount
      * @return $this
      */
+    public function setInterestRate($amount)
+    {
+        if (is_numeric($amount)) {
+            new Exception("Amount borrowed must be a number");
+        }
+        $this->interestRate = $amount;
+        return $this;
+    }
+    /**
+     * The amount to transact
+     *
+     * @param  $amount
+     * @return $this
+     */
     public function deadline($deadlineDate)
     {
         $this->deadlineDate = $deadlineDate;
@@ -97,6 +115,7 @@ class WageBorrow extends ApiWageBase
     {
         $data = [
             'borrowed_amount' => $this->borrowedAmount,
+            'interest_rate' => $this->interestRate,
             'deadline_date' => $this->deadlineDate,
             'myWagepayId' => $this->myWagepayId,
         ];

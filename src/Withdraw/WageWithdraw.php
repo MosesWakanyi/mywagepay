@@ -3,7 +3,6 @@
 namespace myWagepay\Baas\Withdraw;
 
 use Exception;
-use Illuminate\Support\Facades\Log;
 use myWagepay\Baas\Request\ApiWageBase;
 use GuzzleHttp\Exception\ServerException;
 
@@ -17,7 +16,17 @@ class WageWithdraw extends ApiWageBase
     /**
      * @var double
      */
-    private $withdrawableAmount;
+    private $amountToPay;
+    /**
+     * @var double
+     */
+    private $phoneNumber;
+    /**
+
+     /**
+     * @var string
+     */
+    private $withdrawDesc;
     /**
      * @var string
      */
@@ -25,11 +34,12 @@ class WageWithdraw extends ApiWageBase
     /**
      * @var string
      */
-    private $trials = 3;
-    /**
-     * @var string
-     */
     private $callback;
+    /**
+     * @var int
+     */
+    private $trials = 3;
+
     /**
      * Set number to receive the funds
      *
@@ -37,7 +47,7 @@ class WageWithdraw extends ApiWageBase
      * @return $this
      * @internal param string $number
      */
-    public function to($myWagepayId)
+    public function from($myWagepayId)
     {
         if (empty($myWagepayId)) {
             new Exception("myWagepay ID cannot be empty");
@@ -52,12 +62,41 @@ class WageWithdraw extends ApiWageBase
      * @param  $amount
      * @return $this
      */
+    public function phone($phoneNumber)
+    {
+        if (empty($phoneNumber)) {
+            new Exception("Phone number is required");
+        }
+        $this->phoneNumber = $phoneNumber;
+        return $this;
+    }
+
+    /**
+     * The amount to transact
+     *
+     * @param  $amount
+     * @return $this
+     */
     public function amount($amount)
     {
         if (is_numeric($amount)) {
-            new Exception("withdrawable amount must be a number");
+            new Exception("Amount payable must be a number");
         }
-        $this->withdrawableAmount = $amount;
+        $this->amountToPay = $amount;
+        return $this;
+    }
+    /**
+     * The amount to transact
+     *
+     * @param  $amount
+     * @return $this
+     */
+    public function description($withdrawDesc)
+    {
+        if (empty($withdrawDesc)) {
+            new Exception("Description must provided");
+        }
+        $this->withdrawDesc = $withdrawDesc;
         return $this;
     }
 
@@ -73,6 +112,9 @@ class WageWithdraw extends ApiWageBase
     }
 
     /**
+     * @param string|null $number
+     * @param int|null $amount
+     * @param string|null $serviceProvider
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws Exception
@@ -80,18 +122,18 @@ class WageWithdraw extends ApiWageBase
     public function call()
     {
         $data = [
-            'withdraw_amount' => $this->withdrawableAmount,
+            'withdraw_amount' => $this->amountToPay,
+            'phone_number' => $this->phoneNumber,
+            'withdraw_desc'=>$this->withdrawDesc,
             'myWagepayId' => $this->myWagepayId,
-            'callback' => $this->callback,
         ];
         try {
-            return $this->ApiPostRequest($data, 'baas/withdraw');
+            return $this->ApiPostRequest($data, 'baas/withdrawal');
         } catch (ServerException $exception) {
             if ($this->trials > 0) {
                 $this->trials--;
                 return $this->call();
             }
-            Log::info($exception->getMessage());
         }
         return false;
     }

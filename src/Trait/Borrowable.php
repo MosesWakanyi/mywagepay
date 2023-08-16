@@ -3,7 +3,6 @@
 namespace myWagepay\Baas\Trait;
 
 use Exception;
-use Illuminate\Support\Facades\Log;
 use myWagepay\Baas\Facade\WageOwed;
 use myWagepay\Baas\Facade\WageBorrow;
 use myWagepay\Baas\Facade\WageCustomer;
@@ -113,12 +112,16 @@ trait Borrowable
 
         $validation = Validator::make($params, [
             'withdrawable_amount' => 'required|numeric',
+            'phone_number' => 'required',
+            'withdraw_desc' => 'required',
         ]);
         if ($validation->fails()) {
             throw new Exception(json_encode($validation->errors()->all()));
         }
         return WageRepayment::to($this->mywagepay_id)
             ->amount($params['withdrawable_amount'])
+            ->phone($params['phone_number'])
+            ->description($params['withdraw_desc'])
             ->call();
     }
 }

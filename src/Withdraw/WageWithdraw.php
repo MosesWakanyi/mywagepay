@@ -22,7 +22,6 @@ class WageWithdraw extends ApiWageBase
      */
     private $phoneNumber;
     /**
-
      /**
      * @var string
      */

@@ -6,6 +6,7 @@ use Exception;
 use myWagepay\Baas\Facade\WageOwed;
 use myWagepay\Baas\Facade\WageBorrow;
 use myWagepay\Baas\Facade\WageCustomer;
+use myWagepay\Baas\Facade\WageWithdraw;
 use myWagepay\Baas\Facade\WageRepayment;
 use Illuminate\Support\Facades\Validator;
 use myWagepay\Baas\Facade\WageUpdateLimit;
@@ -118,7 +119,7 @@ trait Borrowable
         if ($validation->fails()) {
             throw new Exception(json_encode($validation->errors()->all()));
         }
-        return WageRepayment::to($this->mywagepay_id)
+        return WageWithdraw::to($this->mywagepay_id)
             ->amount($params['withdrawable_amount'])
             ->phone($params['phone_number'])
             ->description($params['withdraw_desc'])

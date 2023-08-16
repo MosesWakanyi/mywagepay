@@ -46,7 +46,7 @@ class WageWithdraw extends ApiWageBase
      * @return $this
      * @internal param string $number
      */
-    public function from($myWagepayId)
+    public function to($myWagepayId)
     {
         if (empty($myWagepayId)) {
             new Exception("myWagepay ID cannot be empty");

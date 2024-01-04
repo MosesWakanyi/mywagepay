@@ -89,7 +89,7 @@ trait Borrowable
     }
     public function loanListAsWagepay()
     {
-        return WageOwed::to($this->mywagepay_id)->call();
+        return WageOwed::for($this->mywagepay_id)->call();
     }
     public function payAsWagepay($params = [])
     {

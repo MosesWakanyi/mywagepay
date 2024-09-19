@@ -20,6 +20,7 @@
                 "WageCustomerLimit": "myWagepay\\Baas\\Facade\\WageCustomerLimit",
                 "WageBorrow": "myWagepay\\Baas\\Facade\\WageBorrow",
                 "WageRepayment": "myWagepay\\Baas\\Facade\\WageRepayment",
+                "WageRepaymentsLog": "myWagepay\\Baas\\Facade\\WageRepaymentsLog",
                 "WageOwed": "myWagepay\\Baas\\Facade\\WageOwed",
                 "WageWithdraw": "myWagepay\\Baas\\Facade\\WageWithdraw"
 

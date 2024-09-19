@@ -4,6 +4,7 @@ namespace myWagepay\Baas;
 
 use GuzzleHttp\Client;
 use myWagepay\Baas\Borrow\WageOwed;
+use myWagepay\Baas\Borrow\WageRepaymentsLog;
 use myWagepay\Baas\Request\WageBase;
 use myWagepay\Baas\Borrow\WageBorrow;
 use Illuminate\Support\ServiceProvider;
@@ -60,6 +61,9 @@ class MyWagepayServiceProvider extends ServiceProvider
         });
         $this->app->bind('wage_repayment', function () {
             return $this->app->make(WageRepayment::class);
+        });
+        $this->app->bind('wage_repayments_log', function () {
+            return $this->app->make(WageRepaymentsLog::class);
         });
         $this->app->bind('wage_withdraw', function () {
             return $this->app->make(WageWithdraw::class);

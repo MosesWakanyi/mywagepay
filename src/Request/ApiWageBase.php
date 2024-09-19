@@ -127,7 +127,7 @@ class ApiWageBase
                 ]
             );
         } catch (ClientException $e) {
-            Log::info($e->getRequest());
+            Log::info($e->getMessage());
             $this->generateException($e);
         }
     }

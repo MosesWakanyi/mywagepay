@@ -44,12 +44,12 @@ class ApiWageBase
             if ($response != false) {
                 return json_decode($response->getBody());
             } else {
-                throw new Exception(get_class($this) . " Error processing the transaction with mywagepay.com.");
+                throw new Exception("Error processing the transaction with mywagepay.com.");
             }
         } catch (ClientException $exception) {
             throw $this->generateException($exception);
         } catch (Exception $exception) {
-            throw new Exception(get_class($this) . " " . $exception->getMessage());
+            throw new Exception($exception->getMessage());
         }
     }
     /**
@@ -96,12 +96,12 @@ class ApiWageBase
             if ($response != false) {
                 return json_decode($response->getBody());
             } else {
-                throw new Exception(get_class($this) . " Error processing the transaction with mywagepay.com.");
+                throw new Exception("Error processing the transaction with mywagepay.com.");
             }
         } catch (ClientException $exception) {
             throw $this->generateException($exception);
         } catch (Exception $exception) {
-            throw new Exception(get_class($this) . " " . $exception->getMessage());
+            throw new Exception($exception->getMessage());
         }
     }
     /**
